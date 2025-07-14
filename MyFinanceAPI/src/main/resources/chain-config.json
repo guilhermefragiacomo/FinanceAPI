@@ -1,5 +1,12 @@
 {
 	"chain": [
-		"br.edu.ifsp.MyFinanceAPI.controller.handler."
+		"br.edu.ifsp.MyFinanceAPI.controller.handler.InsertTransactionHandler",
+		"br.edu.ifsp.MyFinanceAPI.controller.handler.InsertCategoryHandler",
+		"br.edu.ifsp.MyFinanceAPI.controller.handler.UpdateTransactionHandler",
+		"br.edu.ifsp.MyFinanceAPI.controller.handler.DeleteTransactionHandler",
+		"br.edu.ifsp.MyFinanceAPI.controller.handler.GetByCategoryTransactionHandler",
+		"br.edu.ifsp.MyFinanceAPI.controller.handler.GetByIdTransactionHandler",
+		"br.edu.ifsp.MyFinanceAPI.controller.handler.GetByIdTransactionSummaryHandler",
+		"br.edu.ifsp.MyFinanceAPI.controller.handler.GetTransactionHandler"
 	]
 }

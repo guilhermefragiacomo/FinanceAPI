@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpServletResponse;
 public class DeleteTransactionCommand implements Command {
 
 	@Override
-	public void executar(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		TransactionDAO dao = new TransactionDAOFactory().factory();
 
 		String path = request.getPathInfo();

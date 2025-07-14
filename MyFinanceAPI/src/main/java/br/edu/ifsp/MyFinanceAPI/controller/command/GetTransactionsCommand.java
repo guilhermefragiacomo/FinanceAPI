@@ -14,7 +14,7 @@ import br.edu.ifsp.MyFinanceAPI.model.entity.Transaction;
 public class GetTransactionsCommand implements Command {
 
 	@Override
-	public void executar(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		TransactionDAO dao = new TransactionDAOFactory().factory();
 		List<Transaction> all = dao.getAll();
 		response.setContentType("application/json");

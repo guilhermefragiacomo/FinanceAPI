@@ -8,8 +8,9 @@ import br.edu.ifsp.MyFinanceAPI.model.entity.Transaction;
 public interface TransactionDAO {
 	boolean insert(Transaction transaction);
 	boolean deleteById(int id);
-	boolean update(Transaction old_transaction, Transaction new_transaction);
+	boolean update(int old_transaction_id, Transaction new_transaction);
 	List<Transaction> getAll();
+	List<Transaction> getByCategory(int category_id);
 	Transaction getById(int id);
-	Summary getSummaryByCategory(String category);
+	Summary getSummaryByCategory(int category);
 }

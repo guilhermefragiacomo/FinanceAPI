@@ -9,37 +9,23 @@ public class Transaction {
 	private float value;
 	private String type;
 	private int category;
-	private LocalDateTime date;
+	private String date;
 	
-	private DateTimeFormatter formatter;
-	
-	public Transaction(String description, float value, String type, int category, LocalDateTime date) {
+	public Transaction(String description, float value, String type, int category, String date) {
 		setDescription(description);
 		setValue(value);
 		setType(type);
 		setCategory(category);
 		setDate(date);
-		
-		formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 	}
 	
-	public Transaction(int id, String description, float value, String type, int category, LocalDateTime date) {
+	public Transaction(int id, String description, float value, String type, int category, String date) {
 		setId(id);
 		setDescription(description);
 		setValue(value);
 		setType(type);
 		setCategory(category);
 		setDate(date);
-		
-		formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-	}
-	
-	public String getFormatedDate() {
-		return date.format(formatter);
-	}
-	
-	public static LocalDateTime getFormatedString(String dateString) {
-		return LocalDateTime.parse(dateString);
 	}
 	
 	public int getId() {
@@ -72,10 +58,10 @@ public class Transaction {
 	private void setCategory(int category) {
 		this.category = category;
 	}
-	public LocalDateTime getDate() {
+	public String getDate() {
 		return date;
 	}
-	private void setDate(LocalDateTime date) {
+	private void setDate(String date) {
 		this.date = date;
 	}
 

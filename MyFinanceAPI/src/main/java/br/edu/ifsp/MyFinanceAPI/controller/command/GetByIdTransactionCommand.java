@@ -14,7 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
 public class GetByIdTransactionCommand implements Command {
 
 	@Override
-	public void executar(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		TransactionDAO dao = new TransactionDAOFactory().factory();
 
 		String path = request.getPathInfo();

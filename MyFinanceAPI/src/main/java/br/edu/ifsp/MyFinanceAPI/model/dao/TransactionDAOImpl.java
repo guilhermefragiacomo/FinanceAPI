@@ -16,7 +16,10 @@ public class TransactionDAOImpl implements TransactionDAO {
 	private static final String DELETE = "DELETE FROM transactions WHERE id = ?";
 	private static final String UPDATE = "UPDATE transactions SET description = ?, value = ?, type = ?, category_id = ?, date = ? WHERE id = ?";
 	private static final String GET_BY_ID = "SELECT * FROM transactions WHERE id = ?";
+	private static final String GET_BY_CATEGORY = "SELECT * FROM transactions WHERE category_id = ?";
 	private static final String GET_ALL = "SELECT * FROM transactions";
+	private static final String GET_REVENUE_EXPENSES_BY_CATEGORY = "SELECT SUM(value) AS \"value\", type FROM transactions WHERE category_id = ? GROUP BY type;";
+	private static final String GET_SUMMARY = "SELECT SUM(value) AS \"value\", type FROM transactions GROUP BY type;";
 
 	@Override
 	public boolean insert(Transaction transaction) {
@@ -31,7 +34,7 @@ public class TransactionDAOImpl implements TransactionDAO {
 				statement.setFloat(2, transaction.getValue());
 				statement.setString(3, transaction.getType());
 				statement.setInt(4, transaction.getCategory());
-				statement.setString(5, transaction.getFormatedDate());
+				statement.setString(5, transaction.getDate());
 				
 				rows = statement.executeUpdate();
 				
@@ -57,9 +60,9 @@ public class TransactionDAOImpl implements TransactionDAO {
 		return rows > 0;
 	}
 	@Override
-	public boolean update(Transaction old_transaction, Transaction new_transaction) {
+	public boolean update(int old_transaction_id, Transaction new_transaction) {
 		int rows = 0;
-		if(old_transaction != null && new_transaction != null) {
+		if(new_transaction != null) {
 			try(Connection connection = DatabaseConnection.getConnection();
 				PreparedStatement statement = connection.prepareStatement(UPDATE)){
 				
@@ -67,8 +70,8 @@ public class TransactionDAOImpl implements TransactionDAO {
 				statement.setFloat(2, new_transaction.getValue());
 				statement.setString(3, new_transaction.getType());
 				statement.setInt(4, new_transaction.getCategory());
-				statement.setString(5, new_transaction.getFormatedDate());
-				statement.setInt(6, old_transaction.getId());
+				statement.setString(5, new_transaction.getDate());
+				statement.setInt(6, old_transaction_id);
 				
 				rows = statement.executeUpdate();
 			}catch(SQLException e) {
@@ -89,7 +92,7 @@ public class TransactionDAOImpl implements TransactionDAO {
 			ResultSet result = statement.executeQuery();
 			
 			while(result.next()) {
-				transaction = new Transaction(result.getInt("id"), result.getString("description"), result.getFloat("value"), result.getString("type"), result.getInt("category"), Transaction.getFormatedString(result.getString("date")));
+				transaction = new Transaction(result.getInt("id"), result.getString("description"), result.getFloat("value"), result.getString("type"), result.getInt("category_id"), result.getString("date"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -97,9 +100,45 @@ public class TransactionDAOImpl implements TransactionDAO {
 		return transaction;
 	}
 	@Override
-	public Summary getSummaryByCategory(String category) {
-		// TODO Auto-generated method stub
-		return null;
+	public Summary getSummaryByCategory(int category) {
+		List<Transaction> list = new ArrayList<>();
+		Summary summary = null;
+		try {
+			Connection connection = DatabaseConnection.getConnection();
+			
+			PreparedStatement statement = connection.prepareStatement(GET_REVENUE_EXPENSES_BY_CATEGORY);
+			statement.setInt(1, category);
+			
+			ResultSet resultSet = statement.executeQuery();
+			
+			float revenue = 0;
+			float expense = 0;
+			float current_balance = 0;
+			while(resultSet.next()) {
+				if (resultSet.getInt("type") == 1) {
+					revenue = resultSet.getFloat("value");
+				} else {
+					expense = resultSet.getFloat("value");
+				}
+			}
+			
+			statement = connection.prepareStatement(GET_SUMMARY);
+			
+			resultSet = statement.executeQuery();
+			while(resultSet.next()) {
+				if (resultSet.getInt("type") == 1) {
+					current_balance += resultSet.getFloat("value");
+				} else {
+					current_balance -= resultSet.getFloat("value");
+				}
+			}
+			
+			summary = new Summary(revenue, expense, category, current_balance);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return summary;
 	}
 	@Override
 	public List<Transaction> getAll() {
@@ -112,7 +151,28 @@ public class TransactionDAOImpl implements TransactionDAO {
 			ResultSet resultSet = statement.executeQuery();
 			
 			while(resultSet.next()) {
-				Transaction servico = new Transaction(resultSet.getInt("id"), resultSet.getString("description"), resultSet.getFloat("value"), resultSet.getString("type"), resultSet.getInt("category_id"), Transaction.getFormatedString(resultSet.getString("date")));
+				Transaction transaction = new Transaction(resultSet.getInt("id"), resultSet.getString("description"), resultSet.getFloat("value"), resultSet.getString("type"), resultSet.getInt("category_id"),resultSet.getString("date"));
+				
+				list.add(transaction);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	@Override
+	public List<Transaction> getByCategory(int category_id) {
+		List<Transaction> list = new ArrayList<>();
+		try {
+			Connection connection = DatabaseConnection.getConnection();
+			
+			PreparedStatement statement = connection.prepareStatement(GET_BY_CATEGORY);
+			statement.setInt(1, category_id);
+			
+			ResultSet resultSet = statement.executeQuery();
+			
+			while(resultSet.next()) {
+				Transaction servico = new Transaction(resultSet.getInt("id"), resultSet.getString("description"), resultSet.getFloat("value"), resultSet.getString("type"), resultSet.getInt("category_id"),resultSet.getString("date"));
 				
 				list.add(servico);
 			}

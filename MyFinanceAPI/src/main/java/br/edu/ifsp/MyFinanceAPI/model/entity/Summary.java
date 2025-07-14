@@ -3,10 +3,10 @@ package br.edu.ifsp.MyFinanceAPI.model.entity;
 public class Summary {
 	private float total_revenue;
 	private float total_expense;
-	private String category;
+	private int category;
 	private float current_balance;
 	
-	public Summary(float total_revenue, float total_expense, String category, float current_balance) {
+	public Summary(float total_revenue, float total_expense, int category, float current_balance) {
 		setTotal_revenue(total_revenue);
 		setTotal_expense(total_expense);
 		setCategory(category);
@@ -25,10 +25,10 @@ public class Summary {
 	private void setTotal_expense(float total_expense) {
 		this.total_expense = total_expense;
 	}
-	public String getCategory() {
+	public int getCategory() {
 		return category;
 	}
-	private void setCategory(String category) {
+	private void setCategory(int category) {
 		this.category = category;
 	}
 	public float getCurrent_balance() {
