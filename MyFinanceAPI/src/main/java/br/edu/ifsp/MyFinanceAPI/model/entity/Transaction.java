@@ -7,11 +7,11 @@ public class Transaction {
 	private int id;
 	private String description;
 	private float value;
-	private String type;
+	private int type;
 	private int category;
 	private String date;
 	
-	public Transaction(String description, float value, String type, int category, String date) {
+	public Transaction(String description, float value, int type, int category, String date) {
 		setDescription(description);
 		setValue(value);
 		setType(type);
@@ -19,7 +19,7 @@ public class Transaction {
 		setDate(date);
 	}
 	
-	public Transaction(int id, String description, float value, String type, int category, String date) {
+	public Transaction(int id, String description, float value, int type, int category, String date) {
 		setId(id);
 		setDescription(description);
 		setValue(value);
@@ -46,10 +46,10 @@ public class Transaction {
 	private void setValue(float value) {
 		this.value = value;
 	}
-	public String getType() {
+	public int getType() {
 		return type;
 	}
-	private void setType(String type) {
+	private void setType(int type) {
 		this.type = type;
 	}
 	public int getCategory() {

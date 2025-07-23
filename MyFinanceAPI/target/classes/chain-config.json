@@ -5,8 +5,13 @@
 		"br.edu.ifsp.MyFinanceAPI.controller.handler.UpdateTransactionHandler",
 		"br.edu.ifsp.MyFinanceAPI.controller.handler.DeleteTransactionHandler",
 		"br.edu.ifsp.MyFinanceAPI.controller.handler.GetByCategoryTransactionHandler",
+		"br.edu.ifsp.MyFinanceAPI.controller.handler.GetTransactionByTypeHandler",
+		"br.edu.ifsp.MyFinanceAPI.controller.handler.GetTransactionByMonthHandler",
+		"br.edu.ifsp.MyFinanceAPI.controller.handler.GetTransactionByFiltersHandler",
 		"br.edu.ifsp.MyFinanceAPI.controller.handler.GetByIdTransactionHandler",
-		"br.edu.ifsp.MyFinanceAPI.controller.handler.GetByIdTransactionSummaryHandler",
-		"br.edu.ifsp.MyFinanceAPI.controller.handler.GetTransactionHandler"
+		"br.edu.ifsp.MyFinanceAPI.controller.handler.GetSummaryByCategoryIdHandler",
+		"br.edu.ifsp.MyFinanceAPI.controller.handler.GetSummaryHandler",
+		"br.edu.ifsp.MyFinanceAPI.controller.handler.GetTransactionHandler",
+		"br.edu.ifsp.MyFinanceAPI.controller.handler.GetCategoriesHandler"
 	]
 }

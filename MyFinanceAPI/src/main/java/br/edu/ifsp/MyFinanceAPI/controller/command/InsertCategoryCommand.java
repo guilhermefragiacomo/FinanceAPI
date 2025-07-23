@@ -35,9 +35,9 @@ public class InsertCategoryCommand implements Command {
 			        }
 			    }).create();
 
-        Category transaction = gson.fromJson(reader, Category.class);
+        Category category = gson.fromJson(reader, Category.class);
         
-        if (dao.insert(transaction)) {
+        if (dao.insert(category)) {
         	response.setStatus(HttpServletResponse.SC_CREATED);
         } else {
         	response.setStatus(HttpServletResponse.SC_BAD_REQUEST);

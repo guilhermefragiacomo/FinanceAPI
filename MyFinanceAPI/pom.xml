@@ -41,7 +41,12 @@
 			<artifactId>gson</artifactId>
 			<version>2.13.1</version>
 		</dependency>
-	</dependencies>
+		<dependency>
+			<groupId>br.edu.ifsp</groupId>
+			<artifactId>MicroSaaS</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+  </dependencies>
   <build>
 	  <plugins>
         <plugin>

@@ -4,6 +4,10 @@ public class Category {
 	private int id;
 	private String name;
 	
+	public Category(String name) {
+		setName(name);
+	}
+	
 	public Category(int id, String name) {
 		setId(id);
 		setName(name);
