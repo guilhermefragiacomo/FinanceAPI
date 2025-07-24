@@ -14,12 +14,19 @@ public class GetSummaryCommand implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		TransactionDAO dao = new TransactionDAOFactory().factory();
-		Summary summary = dao.getSummary();
-		response.setContentType("application/json");
-		PrintWriter out = response.getWriter();
-		out.print(new Gson().toJson(summary));
-		out.flush();
+		try {
+			TransactionDAO dao = new TransactionDAOFactory().factory();
+			
+			Summary summary = dao.getSummary();
+			response.setContentType("application/json");
+			PrintWriter out = response.getWriter();
+			out.print(new Gson().toJson(summary));
+			out.flush();
+			response.setStatus(HttpServletResponse.SC_OK);
+		} catch (Exception e) {
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			e.printStackTrace();
+		}
 	}
 
 }

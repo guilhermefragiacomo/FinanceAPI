@@ -15,15 +15,28 @@ public class GetTransactionByMonthCommand implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		TransactionDAO dao = new TransactionDAOFactory().factory();
-		
-		String path = request.getPathInfo();
-		int id = Integer.parseInt(path.replaceAll("[^\\d]", ""));
-
-		List<Transaction> list = dao.getByMonth(id);
-		response.setContentType("application/json");
-		PrintWriter out = response.getWriter();
-		out.print(new Gson().toJson(list));
-		out.flush();
+		try {
+			TransactionDAO dao = new TransactionDAOFactory().factory();
+			
+			String path = request.getPathInfo();
+			int id;
+			try {
+				id = Integer.parseInt(path.replaceAll("[^\\d]", ""));
+	        } catch (Exception e) {
+	        	response.sendError(HttpServletResponse.SC_BAD_REQUEST, "ID do mês inválido.");
+	        	e.printStackTrace();
+	        	return;
+	        }
+	
+			List<Transaction> list = dao.getByMonth(id);
+			response.setContentType("application/json");
+			PrintWriter out = response.getWriter();
+			out.print(new Gson().toJson(list));
+			out.flush();
+			response.setStatus(HttpServletResponse.SC_OK);
+		} catch (Exception e) {
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			e.printStackTrace();
+		}
 	}
 }

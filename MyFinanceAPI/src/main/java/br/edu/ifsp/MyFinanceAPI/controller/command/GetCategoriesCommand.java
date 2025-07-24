@@ -15,12 +15,19 @@ public class GetCategoriesCommand implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		CategoryDAO dao = new CategoryDAOFactory().factory();
-		List<Category> all = dao.getAll();
-		response.setContentType("application/json");
-		PrintWriter out = response.getWriter();
-		out.print(new Gson().toJson(all));
-		out.flush();
+		try {
+			CategoryDAO dao = new CategoryDAOFactory().factory();
+			
+			List<Category> all = dao.getAll();
+			response.setContentType("application/json");
+			PrintWriter out = response.getWriter();
+			out.print(new Gson().toJson(all));
+			out.flush();
+			response.setStatus(HttpServletResponse.SC_OK);
+		} catch (Exception e) {
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			e.printStackTrace();
+		}
 	}
 
 }

@@ -21,23 +21,28 @@ public class InsertTransactionCommand implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		TransactionDAO dao = new TransactionDAOFactory().factory();
-		
-		BufferedReader reader = request.getReader();
-        Gson gson = new GsonBuilder()
-			    .registerTypeAdapter(LocalDate.class, new JsonDeserializer<LocalDate>() {
-			        public LocalDate deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
-			                throws JsonParseException {
-			            return LocalDate.parse(json.getAsString());
-			        }
-			    }).create();
-
-        Transaction transaction = gson.fromJson(reader, Transaction.class);
-        
-        if (dao.insert(transaction)) {
-        	response.setStatus(HttpServletResponse.SC_CREATED);
-        } else {
-        	response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-        }
+		try {
+			TransactionDAO dao = new TransactionDAOFactory().factory();
+			
+			BufferedReader reader = request.getReader();
+	        Gson gson = new GsonBuilder()
+				    .registerTypeAdapter(LocalDate.class, new JsonDeserializer<LocalDate>() {
+				        public LocalDate deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+				                throws JsonParseException {
+				            return LocalDate.parse(json.getAsString());
+				        }
+				    }).create();
+	
+	        Transaction transaction = gson.fromJson(reader, Transaction.class);
+	        
+	        if (dao.insert(transaction)) {
+	        	response.setStatus(HttpServletResponse.SC_CREATED);
+	        } else {
+	        	response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+	        }
+		} catch (Exception e) {
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			e.printStackTrace();
+		}
 	}
 }

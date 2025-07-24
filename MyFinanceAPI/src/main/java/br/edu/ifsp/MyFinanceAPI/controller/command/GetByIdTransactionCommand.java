@@ -15,16 +15,29 @@ public class GetByIdTransactionCommand implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		TransactionDAO dao = new TransactionDAOFactory().factory();
-
-		String path = request.getPathInfo();
-		int id = Integer.parseInt(path.replaceAll("[^\\d]", ""));
-
-		Transaction transaction = dao.getById(id);
-		response.setContentType("application/json");
-		PrintWriter out = response.getWriter();
-		out.print(new Gson().toJson(transaction));
-		out.flush();
+		try {
+			TransactionDAO dao = new TransactionDAOFactory().factory();
+	
+			String path = request.getPathInfo();
+			int id;
+			try {
+				id = Integer.parseInt(path.replaceAll("[^\\d]", ""));
+	        } catch (Exception e) {
+	        	response.sendError(HttpServletResponse.SC_BAD_REQUEST, "ID da transação inválido.");
+	        	e.printStackTrace();
+	        	return;
+	        }
+	
+			Transaction transaction = dao.getById(id);
+			response.setContentType("application/json");
+			PrintWriter out = response.getWriter();
+			out.print(new Gson().toJson(transaction));
+			out.flush();
+			response.setStatus(HttpServletResponse.SC_OK);
+		} catch (Exception e) {
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			e.printStackTrace();
+		}
 	}
 
 }
