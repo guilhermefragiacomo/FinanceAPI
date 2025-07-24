@@ -1,14 +1,14 @@
-# 💰 Sistema de Transações Bancárias - API REST
+# Sistema de Transações Bancárias - API REST
 
-## 📄 Descrição do Projeto
+## Descrição do Projeto
 
 Esta é a API REST de um sistema bancário simples que permite gerenciar transações financeiras, como receitas e despesas, categorizá-las, e obter resumos financeiros com base em filtros dinâmicos.
 
-## 🎯 Propósito
+## Propósito
 
 O objetivo deste sistema é fornecer uma plataforma simples, mas eficaz, para controle financeiro, onde o usuário pode registrar, visualizar, filtrar e analisar suas transações por mês, tipo e categoria.
 
-## 🛠️ Tecnologias Utilizadas
+## Tecnologias Utilizadas
 
 * Java (Servlets)
 * Banco de Dados MySQL
@@ -16,15 +16,19 @@ O objetivo deste sistema é fornecer uma plataforma simples, mas eficaz, para co
 * JSON para comunicação via HTTP
 * RESTful API
 
-## ⚙️ Como funciona
+## Como funciona
 
 A API possui endpoints públicos (sem autenticação) para consultar, cadastrar, editar e excluir transações e categorias, além de resumos financeiros baseados em filtros diversos. Os dados são enviados e recebidos no formato JSON.
 
+## Vídeo de Apresentação
+
+https://youtu.be/ehfO7Uy8L_0
+
 ---
 
-## 📚 Documentação da API
+## Documentação da API
 
-### ✅ GET /transactions/
+### GET /transactions/
 
 **Descrição:** Lista todas as transações cadastradas.
 **Códigos de resposta:**
@@ -34,7 +38,7 @@ A API possui endpoints públicos (sem autenticação) para consultar, cadastrar,
 
 ---
 
-### ✅ GET /transactions/{id}
+### GET /transactions/{id}
 
 **Descrição:** Retorna uma transação específica pelo ID.
 **Códigos de resposta:**
@@ -45,7 +49,7 @@ A API possui endpoints públicos (sem autenticação) para consultar, cadastrar,
 
 ---
 
-### ✅ GET /transactions/category/{id}
+### GET /transactions/category/{id}
 
 **Descrição:** Lista transações que pertencem à categoria informada.
 **Códigos de resposta:**
@@ -56,7 +60,7 @@ A API possui endpoints públicos (sem autenticação) para consultar, cadastrar,
 
 ---
 
-### ✅ GET /transactions/type/{id}
+### GET /transactions/type/{id}
 
 **Descrição:** Lista transações de um tipo específico (ex: receita ou despesa).
 **Códigos de resposta:**
@@ -67,7 +71,7 @@ A API possui endpoints públicos (sem autenticação) para consultar, cadastrar,
 
 ---
 
-### ✅ GET /transactions/month/{id}
+### GET /transactions/month/{id}
 
 **Descrição:** Lista transações registradas no mês especificado.
 **Códigos de resposta:**
@@ -78,7 +82,7 @@ A API possui endpoints públicos (sem autenticação) para consultar, cadastrar,
 
 ---
 
-### ✅ GET /transactions/filter/
+### GET /transactions/filter/
 
 **Descrição:** Lista transações com base em filtros opcionais: tipo, categoria e mês.
 **Parâmetros de query (todos opcionais):**
@@ -95,7 +99,7 @@ A API possui endpoints públicos (sem autenticação) para consultar, cadastrar,
 
 ---
 
-### ✅ GET /transactions/summary/
+### GET /transactions/summary/
 
 **Descrição:** Retorna resumo financeiro total: receitas, despesas e saldo.
 **Códigos de resposta:**
@@ -105,7 +109,7 @@ A API possui endpoints públicos (sem autenticação) para consultar, cadastrar,
 
 ---
 
-### ✅ GET /transactions/summary/{id}
+### GET /transactions/summary/{id}
 
 **Descrição:** Retorna resumo financeiro de uma categoria específica.
 **Códigos de resposta:**
@@ -116,7 +120,7 @@ A API possui endpoints públicos (sem autenticação) para consultar, cadastrar,
 
 ---
 
-### ✅ GET /transactions/category/
+### GET /transactions/category/
 
 **Descrição:** Lista todas as categorias disponíveis.
 **Códigos de resposta:**
@@ -126,7 +130,7 @@ A API possui endpoints públicos (sem autenticação) para consultar, cadastrar,
 
 ---
 
-### 🆕 POST /transactions/
+### POST /transactions/
 
 **Descrição:** Cria uma nova transação no sistema.
 **Corpo da requisição (JSON):**
@@ -149,7 +153,7 @@ A API possui endpoints públicos (sem autenticação) para consultar, cadastrar,
 
 ---
 
-### 🆕 POST /category/
+### POST /category/
 
 **Descrição:** Cria uma nova categoria.
 **Corpo da requisição (JSON):**
@@ -168,7 +172,7 @@ A API possui endpoints públicos (sem autenticação) para consultar, cadastrar,
 
 ---
 
-### 📝 PUT /transaction/{id}
+### PUT /transaction/{id}
 
 **Descrição:** Atualiza uma transação existente.
 **Corpo da requisição (JSON):**
@@ -192,7 +196,7 @@ A API possui endpoints públicos (sem autenticação) para consultar, cadastrar,
 
 ---
 
-### ❌ DELETE /transaction/{id}
+### DELETE /transaction/{id}
 
 **Descrição:** Deleta uma transação existente.
 **Códigos de resposta:**
